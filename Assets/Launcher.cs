@@ -5,32 +5,16 @@ using UnityEngine.UI;
 using Photon.Pun;
 
 
+
 public class Launcher : MonoBehaviourPunCallbacks
 {
     public InputField createInput;
     public InputField joinInput;
     public Text error;
     
-    string errorInfo = "Error!";
+    //string errorInfo = "Error!";
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        Debug.Log("Connecting");
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Connected");
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("Joined Main Lobby");
-    }
+    
 
     public void CreateRoom()
     {
@@ -46,14 +30,14 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
+        PhotonNetwork.LoadLevel("SampleScene");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        error.text = errorInfo;
+        error.text = message;
         
-        Debug.Log("Error creating room!");
+        Debug.Log("Error creating room! " + message);
     }
-}
+};
 
